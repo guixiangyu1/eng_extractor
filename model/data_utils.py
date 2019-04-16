@@ -142,13 +142,10 @@ def get_glove_vocab(filename):
     """
     print("Building vocab...")
     vocab = set()
-    i=0
     with open(filename) as f:
         for line in f:
-            i=i+1
-            print(i)
-            # word = line.strip().split(' ')[0]
-            # vocab.add(word)
+            word = line.strip().split(' ')[0]
+            vocab.add(word)
     print("- done. {} tokens".format(len(vocab)))
     return vocab
 
