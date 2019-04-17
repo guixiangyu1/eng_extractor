@@ -54,7 +54,7 @@ class BaseModel(object):
                 if indicate == "train":
                     grads, vs     = zip(*optimizer.compute_gradients(loss, [v for v in tf.trainable_variables() if v.name != "words/_word_embeddings:0"]))
                     grads, gnorm  = tf.clip_by_global_norm(grads, clip)
-                else:
+                elif indicate == "fine_tuning":
                     grads, vs     = zip(*optimizer.compute_gradients(loss,[v for v in tf.trainable_variables() if v.name == "words/_word_embeddings:0"] ))
                     grads, gnorm  = tf.clip_by_global_norm(grads, clip)
                 self.train_op = optimizer.apply_gradients(zip(grads, vs))
@@ -77,10 +77,10 @@ class BaseModel(object):
                     # opt_vars = [v for v in tf.trainable_variables() if v.name == "words/_word_embeddings:0"]
                     # print(opt_vars)
                     # self.train_op = optimizer.minimize(loss, var_list=opt_vars)
-                elif indicate==None:
-                    # self.train_op = optimizer.minimize(loss, var_list=[v for v in tf.trainable_variables() if v.name == "words/_word_embeddings:0"])
-                    grads = optimizer.compute_gradients(loss, [v for v in tf.trainable_variables() if
-                                                               v.name == "words/_word_embeddings:0"])
+
+                # elif indicate==None:
+                #     grads = optimizer.compute_gradients(loss, [v for v in tf.trainable_variables() if
+                #                                                v.name == "words/_word_embeddings:0"])
                 self.train_op = optimizer.apply_gradients(grads)
 
 
