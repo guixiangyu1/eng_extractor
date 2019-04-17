@@ -16,6 +16,7 @@ def main():
     config.clip             = -5.0 # if negative, no clipping
     config.nepoch_no_imprv  = 10
 
+
     config.dir_model = config.dir_output + "model.finetuning.weights/"
     
     # build model
