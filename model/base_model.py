@@ -85,16 +85,17 @@ class BaseModel(object):
 
 
 
-    def initialize_session(self, indicate=None):
+    def initialize_session(self):
         """Defines self.sess and initialize the variables"""
         self.logger.info("Initializing tf session")
         self.sess = tf.Session()
         self.sess.run(tf.global_variables_initializer())
-        if indicate == "fine_tuning":
-            vars_restore = [v for v in tf.trainable_variables() if v.name != "words/_word_embeddings:0"]
-            self.saver = tf.train.Saver(vars_restore)
-        else:
-            self.saver = tf.train.Saver()
+        # if indicate == "fine_tuning":
+        #     vars_restore = [v for v in tf.trainable_variables() if v.name != "words/_word_embeddings:0"]
+        #     self.saver = tf.train.Saver(vars_restore)
+        # else:
+        #     self.saver = tf.train.Saver()
+        self.saver = tf.train.Saver()
 #         self.saver = tf.train.Saver()
 
         # variables_names = [v.name for v in tf.all_variables()]
@@ -103,7 +104,7 @@ class BaseModel(object):
         #     print("Variable: ", k)
         #     print("Shape: ", v.shape)
 
-    def restore_session(self, dir_model):
+    def restore_session(self, dir_model, indicate=None):
         """Reload weights into session
 
         Args:
@@ -112,6 +113,9 @@ class BaseModel(object):
 
         """
         self.logger.info("Reloading the latest trained model...")
+        if indicate=="fine_tuning":
+            vars_restore = [v for v in tf.trainable_variables() if v.name != "words/_word_embeddings:0"]
+            self.saver = tf.train.Saver(vars_restore)
         self.saver.restore(self.sess, dir_model)
         self.saver = tf.train.Saver()
 

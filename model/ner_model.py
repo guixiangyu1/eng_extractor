@@ -227,7 +227,7 @@ class NERModel(BaseModel):
         self.add_train_op(self.config.lr_method, self.lr, self.loss,
                 self.config.clip, indicate=indicate)
 
-        self.initialize_session(indicate=indicate) # now self.sess is defined and vars are init
+        self.initialize_session() # now self.sess is defined and vars are init
 
 
     def predict_batch(self, words):
