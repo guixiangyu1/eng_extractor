@@ -16,13 +16,12 @@ def main():
     config.clip             = -5.0 # if negative, no clipping
     config.nepoch_no_imprv  = 10
 
-
-    config.dir_model = config.dir_output + "model.finetuning.weights/"
+    # config.dir_model = config.dir_output + "model.finetuning.weights/"
     
     # build model
     model = NERModel(config)
     model.build("fine_tuning")
-    model.restore_session(config.dir_output + "model.weights", indicate="fine_tuning")
+    model.restore_session(config.dir_output, indicate="fine_tuning")
 
     # model.restore_session("results/crf/model.weights/") # optional, restore weights
     # model.reinitialize_weights("proj")

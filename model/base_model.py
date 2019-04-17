@@ -85,7 +85,7 @@ class BaseModel(object):
 
 
 
-    def initialize_session(self):
+    def initialize_session(self, indicate=None):
         """Defines self.sess and initialize the variables"""
         self.logger.info("Initializing tf session")
         self.sess = tf.Session()
