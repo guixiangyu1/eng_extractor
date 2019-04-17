@@ -21,7 +21,7 @@ def main():
     # build model
     model = NERModel(config)
     model.build("fine_tuning")
-    model.restore_session(config.dir_model, indicate="fine_tuning")
+    model.restore_session(config.dir_output + "model.weights", indicate="fine_tuning")
 
     # model.restore_session("results/crf/model.weights/") # optional, restore weights
     # model.reinitialize_weights("proj")
