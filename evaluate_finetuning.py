@@ -69,6 +69,7 @@ input> I love Paris""")
 def main():
     # create instance of config
     config = Config()
+    config.dir_model = config.dir_output + "model.finetuning.weights/"
 
     # build model
     model = NERModel(config)
