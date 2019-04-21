@@ -351,9 +351,12 @@ class NERModel(BaseModel):
                                 f.write("1\n")
                             else:
                                 f.write("0\n")
-                        for one_tag in lab_pred:
-                            g.write("{}\n".format(d[one_tag]))
-                        g.write("\n")
+                        # for one_tag in lab_pred:
+                        #     g.write("{}\n".format(d[one_tag]))
+                        # g.write("\n")
+                        g.write("{}\n".format(correct_preds))
+                        g.write("{}\n".format(total_preds))
+                        g.write("{}\n".format(total_correct))
 
 
         p   = correct_preds / total_preds if correct_preds > 0 else 0
