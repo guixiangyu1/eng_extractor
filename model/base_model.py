@@ -157,7 +157,7 @@ class BaseModel(object):
         """
         best_score = 0
         nepoch_no_imprv = 0 # for early stopping
-        self.add_summary() # tensorboard
+        # self.add_summary() # tensorboard
 
         for epoch in range(self.config.nepochs):
             self.logger.info("Epoch {:} out of {:}".format(epoch + 1,
