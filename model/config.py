@@ -89,11 +89,11 @@ class Config():
     nepochs          = 200
     dropout          = 0.5
     batch_size       = 15
-    lr_method        = "sgd"
-    lr               = 0.03
+    lr_method        = "adam"
+    lr               = 0.001
     lr_decay         = 1.0
-    clip             = 5 # if negative, no clipping
-    nepoch_no_imprv  = 30
+    clip             = -5 # if negative, no clipping
+    nepoch_no_imprv  = 8
 
 
     # model hyperparameters
