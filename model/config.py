@@ -95,6 +95,7 @@ class Config():
     clip             = 5 # if negative, no clipping
     nepoch_no_imprv  = 30
 
+
     # model hyperparameters
     hidden_size_char = 100 # lstm on chars
     hidden_size_lstm = 300 # lstm on word embeddings
