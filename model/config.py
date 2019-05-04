@@ -68,7 +68,7 @@ class Config():
     filename_glove = "data/glove.6B.300d.txt"
     # trimmed embeddings (created from glove_filename with build_data.py)
     filename_trimmed = "data/glove.6B.300d.npz"
-    use_pretrained = False
+    use_pretrained = True
 
     # dataset
     filename_dev = "data/valid.txt"
@@ -88,7 +88,7 @@ class Config():
     train_embeddings = False
     nepochs          = 200
     dropout          = 0.5
-    batch_size       = 50
+    batch_size       = 10
     lr_method        = "adam"
     lr               = 0.01
     lr_decay         = 1.0
