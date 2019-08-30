@@ -314,43 +314,44 @@ class NERModel(BaseModel):
             metrics: (dict) metrics["acc"] = 98.4, ...
 
         """
-
-        d = dict()
-        with open("data/tags.txt") as f:
-            for idx, word in enumerate(f):
-                word = word.strip()  # 若没有这个strip（），则每个词包含一个换行符
-                d[idx] = word
+        idx_to_tag = {idx: tag for tag, idx in self.config.vocab_tags.items()}
+        # d = dict()
+        # with open("data/tags.txt") as f:
+        #     for idx, word in enumerate(f):
+        #         word = word.strip()  # 若没有这个strip（），则每个词包含一个换行符
+        #         d[idx] = word
 
 
         accs = []
         correct_preds, total_correct, total_preds = 0., 0., 0.
         with open("results/extractor.txt", "w") as f:
-            # with open("results/tag_pred.txt", "w") as g:
+            with open("results/tag_pred.txt", "w") as g:
 
-            for words, labels in minibatches(test, self.config.batch_size):
-                labels_pred, sequence_lengths = self.predict_batch(words)
+                for words, labels in minibatches(test, self.config.batch_size):
+                    labels_pred, sequence_lengths = self.predict_batch(words)
 
-                for lab, lab_pred, length in zip(labels, labels_pred,
-                                                 sequence_lengths):
-                    lab = lab[:length]
-                    lab_pred = lab_pred[:length]
-                    accs += [a == b for (a, b) in zip(lab, lab_pred)]
+                    for lab, lab_pred, length in zip(labels, labels_pred,
+                                                     sequence_lengths):
+                        lab = lab[:length]
+                        lab_pred = lab_pred[:length]
+                        accs += [a == b for (a, b) in zip(lab, lab_pred)]
 
-                    lab_chunks = set(get_chunks(lab, self.config.vocab_tags))
-                    lab_pred_chunks = set(get_chunks(lab_pred,
-                                                     self.config.vocab_tags))
+                        lab_chunks = set(get_chunks(lab, self.config.vocab_tags))
+                        lab_pred_chunks = set(get_chunks(lab_pred,
+                                                         self.config.vocab_tags))
 
-                    correct_preds += len(lab_chunks & lab_pred_chunks)
-                    total_preds += len(lab_pred_chunks)
-                    total_correct += len(lab_chunks)
-                    for true_entity in get_chunks(lab, self.config.vocab_tags):
-                        if true_entity in get_chunks(lab_pred, self.config.vocab_tags):
-                            f.write("1\n")
-                        else:
-                            f.write("0\n")
-                    # for one_tag in lab_pred:
-                    #     g.write("{}\n".format(d[one_tag]))
-                    # g.write("\n")
+                        correct_preds += len(lab_chunks & lab_pred_chunks)
+                        total_preds += len(lab_pred_chunks)
+                        total_correct += len(lab_chunks)
+                        for true_entity in get_chunks(lab, self.config.vocab_tags):
+                            if true_entity in get_chunks(lab_pred, self.config.vocab_tags):
+                                f.write("1\n")
+                            else:
+                                f.write("0\n")
+                        for one_tag in lab_pred:
+                            one_tag = idx_to_tag[one_tag]
+                            g.write("{}\n".format(one_tag))
+                        g.write("\n")
 
 
 
