@@ -321,7 +321,7 @@ class NERModel(BaseModel):
         #         word = word.strip()  # 若没有这个strip（），则每个词包含一个换行符
         #         d[idx] = word
 
-
+        # 增加了文件，然后分析
         accs = []
         correct_preds, total_correct, total_preds = 0., 0., 0.
         with open("results/extractor.txt", "w") as f:
