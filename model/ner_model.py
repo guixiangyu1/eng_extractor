@@ -243,7 +243,6 @@ class NERModel(BaseModel):
         fd, sequence_lengths = self.get_feed_dict(words, dropout=1.0)
 
 
-
         if self.config.use_crf:
             # get tag scores and transition params of CRF
             viterbi_sequences = []
